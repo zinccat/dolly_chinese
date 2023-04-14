@@ -37,7 +37,7 @@ func (i *DollyIter) Next() {
 
 func (i *DollyIter) Save() error {
 	txt := ToText(i.Models)
-	return iox.WriteAllText(text.JSONL_SAVE_FILE, txt)
+	return iox.WriteAllText(text.JSONL_FILE, txt)
 }
 
 func (i *DollyIter) Translate(trans func(string) (string, error)) {

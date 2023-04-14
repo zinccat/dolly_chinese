@@ -7,4 +7,4 @@ require (
 	github.com/sashabaranov/go-openai v1.7.0
 )
 
-require github.com/KevinZonda/GoX v0.0.15 // indirect
+require github.com/KevinZonda/GoX v0.0.15
