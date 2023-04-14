@@ -11,6 +11,7 @@ import (
 
 func main() {
 	shared.Cfg = readCfg()
+	loadJsonL()
 	gpt.Init()
 }
 
