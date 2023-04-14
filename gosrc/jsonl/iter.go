@@ -47,7 +47,7 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 	var wg sync.WaitGroup
 	count := 0
 	for idx, mod := range i.Models {
-		if mod.Translated {
+		if !mod.NeedTranslate() {
 			fmt.Println("[SKIP] 已翻译，跳过 IDX:", idx)
 			continue
 		}
@@ -72,10 +72,6 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 
 func (m *DollyModel) translate(trans func(string) (string, error), idx int) {
 	fmt.Printf("[翻译] 正在翻译第 %d 条\n", idx+1)
-	if m.Translated {
-		fmt.Printf("[SKIP] %d 已翻译，跳过", idx)
-		return
-	}
 	var err error
 	m.Instruction, err = trans(m.Instruction)
 	if err != nil {

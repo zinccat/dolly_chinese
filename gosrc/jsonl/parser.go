@@ -15,6 +15,22 @@ type DollyModel struct {
 	Translated  bool   `json:"translated,default:false"`
 }
 
+func (m *DollyModel) NeedTranslate() bool {
+	if !m.Translated {
+		return true
+	}
+	if strings.HasPrefix(m.Instruction, "错误！") {
+		return true
+	}
+	if strings.HasPrefix(m.Context, "错误！") {
+		return true
+	}
+	if strings.HasPrefix(m.Response, "错误！") {
+		return true
+	}
+	return false
+}
+
 func FromText(s string) []DollyModel {
 	lines := strings.Split(s, "\n")
 	models := make([]DollyModel, len(lines))
