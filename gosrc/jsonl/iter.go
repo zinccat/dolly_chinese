@@ -24,7 +24,10 @@ func (i *DollyIter) Save() error {
 	fmt.Println("[保存] 保存到文件")
 	txt := ToText(i.Models)
 	err := iox.WriteAllText(text.JSONL_FILE, txt)
-	fmt.Printf("[错误] 保存失败 -> %v\n", err)
+	if err != nil {
+		fmt.Printf("[错误] 保存失败 -> %v\n", err)
+		return err
+	}
 	return err
 }
 
