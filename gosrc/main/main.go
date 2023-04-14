@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/KevinZonda/GoX/pkg/iox"
 	"github.com/hjson/hjson-go/v4"
 	"github.com/zinccat/dolly_chinese/gosrc/gpt"
@@ -13,6 +14,7 @@ import (
 func main() {
 	shared.Cfg = readCfg()
 	text.MAX_CONC = shared.Cfg.MaxConc
+	fmt.Println("最大并发数:", text.MAX_CONC)
 	loadJsonL()
 	gpt.Init()
 	shared.Data.Translate(gpt.Translate)

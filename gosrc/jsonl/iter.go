@@ -67,6 +67,7 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 		}
 	}
 	wg.Wait()
+	i.Save()
 }
 
 func (m *DollyModel) translate(trans func(string) (string, error), idx int) {
