@@ -55,6 +55,7 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 		}(idx)
 		if count >= text.MAX_CONC {
 			wg.Wait()
+			i.Save()
 			count = 0
 			wg = sync.WaitGroup{}
 		}
