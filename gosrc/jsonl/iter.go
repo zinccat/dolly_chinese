@@ -47,10 +47,10 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 		}
 		wg.Add(1)
 		count++
-		go func(idx int) {
+		go func(_idx int) {
 			defer wg.Done()
-			mod := &i.Models[idx]
-			mod.translate(trans, idx)
+			mod := &i.Models[_idx]
+			mod.translate(trans, _idx)
 
 		}(idx)
 		if count >= text.MAX_CONC {
