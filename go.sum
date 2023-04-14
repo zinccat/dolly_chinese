@@ -1,2 +1,6 @@
+github.com/KevinZonda/GoX v0.0.15 h1:u+G41/srg8c6bmI6Oqw9iBwYiSQk9FKp9fv/YBZadFk=
+github.com/KevinZonda/GoX v0.0.15/go.mod h1:WHV3YUyG+ou3wuUgwO4SRhMiKxLTVK5inajmtR1MUXo=
+github.com/hjson/hjson-go/v4 v4.3.0 h1:dyrzJdqqFGhHt+FSrs5n9s6b0fPM8oSJdWo+oS3YnJw=
+github.com/hjson/hjson-go/v4 v4.3.0/go.mod h1:KaYt3bTw3zhBjYqnXkYywcYctk0A2nxeEFTse3rH13E=
 github.com/sashabaranov/go-openai v1.7.0 h1:D1dBXoZhtf/aKNu6WFf0c7Ah2NM30PZ/3Mqly6cZ7fk=
 github.com/sashabaranov/go-openai v1.7.0/go.mod h1:lj5b/K+zjTSFxVLijLSTDZuP7adOgerWeFyZLUhAKRg=

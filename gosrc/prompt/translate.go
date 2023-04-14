@@ -8,7 +8,7 @@ import (
 
 var ErrNoChoiceAvailable = errors.New("no choice available")
 
-func Translate(s string) (string, error) {
+func Translate(client *openai.Client, s string) (string, error) {
 	ctx := context.Background()
 	resp, err := client.CreateChatCompletion(ctx, getRequest(s))
 	if err != nil {
@@ -19,8 +19,6 @@ func Translate(s string) (string, error) {
 	}
 	return resp.Choices[0].Message.Content, nil
 }
-
-var client *openai.Client
 
 func getRequest(toTrans string) openai.ChatCompletionRequest {
 	return openai.ChatCompletionRequest{
