@@ -14,9 +14,11 @@ func Translate(s string) (string, error) {
 	if strings.TrimSpace(s) == "" {
 		return "", nil
 	}
+	val := ""
+	var err error
 	for i := 0; i < 3; i++ {
 		c := GetGPT()
-		val, err := prompt.Translate(c.cli, s)
+		val, err = prompt.Translate(c.cli, s)
 		if err == nil {
 			return val, nil
 		}
@@ -42,5 +44,9 @@ func Translate(s string) (string, error) {
 			}
 		}
 	}
-	return "错误！", ErrNotAvail
+	if err == nil {
+		return "错误！", ErrNotAvail
+	} else {
+		return "错误！", err
+	}
 }
