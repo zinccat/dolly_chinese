@@ -22,6 +22,7 @@ func Translate(s string) (string, error) {
 		if err == nil {
 			return val, nil
 		}
+		fmt.Println("[GPT错误]", c.Token, "->", err.Error())
 
 		apiE, ok := err.(*openai.APIError)
 		if ok {
