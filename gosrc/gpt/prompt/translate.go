@@ -3,6 +3,7 @@ package prompt
 import (
 	"context"
 	"errors"
+
 	"github.com/sashabaranov/go-openai"
 )
 
@@ -26,7 +27,7 @@ func getRequest(toTrans string) openai.ChatCompletionRequest {
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role:    openai.ChatMessageRoleSystem,
-				Content: "将以下文字翻译成中文，翻译得自然、流畅和地道",
+				Content: "将以下文字翻译成中文，翻译得自然、流畅和地道。无法翻译时输出ERR",
 			},
 			{
 				Role:    openai.ChatMessageRoleUser,
