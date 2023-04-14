@@ -11,6 +11,9 @@ import (
 var ErrNotAvail = errors.New("not available")
 
 func Translate(s string) (string, error) {
+	if strings.TrimSpace(s) == "" {
+		return "", nil
+	}
 	for i := 0; i < 3; i++ {
 		c := GetGPT()
 		val, err := prompt.Translate(c.cli, s)

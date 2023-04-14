@@ -50,6 +50,11 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 			i.Next()
 			continue
 		}
+		m.Instruction, err = trans(m.Instruction)
+		if err != nil {
+			fmt.Printf("[错误] %d.Instruction -> %v\n", i.Index, err)
+			m.Instruction = "错误！" + m.Instruction + err.Error()
+		}
 		m.Context, err = trans(m.Context)
 		if err != nil {
 			fmt.Printf("[错误] %d.Context -> %v\n", i.Index, err)
