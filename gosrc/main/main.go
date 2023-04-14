@@ -7,16 +7,18 @@ import (
 	"github.com/zinccat/dolly_chinese/gosrc/jsonl"
 	"github.com/zinccat/dolly_chinese/gosrc/model"
 	"github.com/zinccat/dolly_chinese/gosrc/shared"
+	"github.com/zinccat/dolly_chinese/gosrc/text"
 )
 
 func main() {
 	shared.Cfg = readCfg()
 	loadJsonL()
 	gpt.Init()
+	shared.Data.Translate(gpt.Translate)
 }
 
 func readCfg() model.CfgModel {
-	txt, err := iox.ReadAllText(shared.CONFIG_FILE)
+	txt, err := iox.ReadAllText(text.CONFIG_FILE)
 	if err != nil {
 		panic(err)
 	}
@@ -29,7 +31,7 @@ func readCfg() model.CfgModel {
 }
 
 func loadJsonL() {
-	txt, err := iox.ReadAllText(shared.JSONL_FILE)
+	txt, err := iox.ReadAllText(text.JSONL_FILE)
 	if err != nil {
 		panic(err)
 	}

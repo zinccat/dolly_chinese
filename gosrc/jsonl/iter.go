@@ -1,6 +1,10 @@
 package jsonl
 
-import "github.com/zinccat/dolly_chinese/gosrc/gpt"
+import (
+	"fmt"
+	"github.com/KevinZonda/GoX/pkg/iox"
+	"github.com/zinccat/dolly_chinese/gosrc/text"
+)
 
 type DollyIter struct {
 	Models []DollyModel
@@ -31,20 +35,34 @@ func (i *DollyIter) Next() {
 	i.Index++
 }
 
-func (i *DollyIter) Translate() {
+func (i *DollyIter) Save() error {
+	txt := ToText(i.Models)
+	return iox.WriteAllText(text.JSONL_SAVE_FILE, txt)
+}
+
+func (i *DollyIter) Translate(trans func(string) (string, error)) {
 	var err error
 	for i.HasNext() {
+		fmt.Printf("正在翻译第 %d 条\n", i.Index+1)
 		m := i.Value()
-		m.Context, err = gpt.Translate(m.Context)
+		if m.Translated {
+			fmt.Println("已翻译，跳过")
+			i.Next()
+			continue
+		}
+		m.Context, err = trans(m.Context)
 		if err != nil {
+			fmt.Printf("[错误] %d.Context -> %v\n", i.Index, err)
 			m.Context = "错误！" + m.Context + err.Error()
 		}
-		m.Response, err = gpt.Translate(m.Response)
+		m.Response, err = trans(m.Response)
 		if err != nil {
+			fmt.Printf("[错误] %d.Response -> %v\n", i.Index, err)
 			m.Response = "错误！" + m.Response + err.Error()
 		}
 		m.Translated = true
 		i.Models[i.Index] = m
+		i.Save()
 		i.Next()
 	}
 }
