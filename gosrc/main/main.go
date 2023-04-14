@@ -33,5 +33,6 @@ func loadJsonL() {
 	if err != nil {
 		panic(err)
 	}
-	shared.Data = jsonl.FromText(txt)
+	jl := jsonl.FromText(txt)
+	shared.Data = jsonl.InitDollyIter(jl)
 }

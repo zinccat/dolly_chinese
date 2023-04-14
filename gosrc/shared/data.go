@@ -2,4 +2,4 @@ package shared
 
 import "github.com/zinccat/dolly_chinese/gosrc/jsonl"
 
-var Data []jsonl.Dollymodel
+var Data *jsonl.DollyIter
