@@ -12,6 +12,7 @@ import (
 
 func main() {
 	shared.Cfg = readCfg()
+	text.MAX_CONC = shared.Cfg.MaxConc
 	loadJsonL()
 	gpt.Init()
 	shared.Data.Translate(gpt.Translate)

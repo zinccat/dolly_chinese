@@ -21,8 +21,11 @@ func InitDollyIter(set DollySet) *DollyIter {
 }
 
 func (i *DollyIter) Save() error {
+	fmt.Println("[保存] 保存到文件")
 	txt := ToText(i.Models)
-	return iox.WriteAllText(text.JSONL_FILE, txt)
+	err := iox.WriteAllText(text.JSONL_FILE, txt)
+	fmt.Printf("[错误] 保存失败 -> %v\n", err)
+	return err
 }
 
 func (i *DollyIter) SaveDaemon(t time.Duration) {
@@ -64,7 +67,7 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 }
 
 func (m *DollyModel) translate(trans func(string) (string, error), idx int) {
-	fmt.Printf("正在翻译第 %d 条\n", idx+1)
+	fmt.Printf("[翻译] 正在翻译第 %d 条\n", idx+1)
 	if m.Translated {
 		fmt.Printf("[SKIP] %d 已翻译，跳过", idx)
 		return

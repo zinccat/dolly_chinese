@@ -1,3 +1,3 @@
 package text
 
-const MAX_CONC = 10
+var MAX_CONC = 10
