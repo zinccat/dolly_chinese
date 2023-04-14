@@ -12,7 +12,7 @@ type DollyModel struct {
 	Context     string `json:"context"`
 	Response    string `json:"response"`
 	Category    string `json:"category"`
-	Translated  bool   `json:"translated,omitempty,default:false"`
+	Translated  bool   `json:"translated,default:false"`
 }
 
 func FromText(s string) []DollyModel {
