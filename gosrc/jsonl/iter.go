@@ -59,6 +59,7 @@ func (i *DollyIter) Translate(trans func(string) (string, error)) {
 			wg = sync.WaitGroup{}
 		}
 	}
+	wg.Wait()
 }
 
 func (m *DollyModel) translate(trans func(string) (string, error), idx int) {
