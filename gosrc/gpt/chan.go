@@ -39,6 +39,9 @@ func daemon() {
 
 func statistic() {
 	fmt.Println("[GPT STATISTICS]", "Valid:", len(workableCh), "Broken:", len(brokenCh), "OOS:", len(outOfServiceCh))
+	if len(workableCh) == 0 {
+		panic("[GPT SCHEDULER] NO GPT Available!")
+	}
 }
 
 func GetGPT() *Client {
