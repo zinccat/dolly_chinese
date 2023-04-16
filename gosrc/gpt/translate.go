@@ -6,6 +6,7 @@ import (
 	"github.com/sashabaranov/go-openai"
 	"github.com/zinccat/dolly_chinese/gosrc/gpt/prompt"
 	"strings"
+	"time"
 )
 
 var ErrNotAvail = errors.New("not available")
@@ -44,6 +45,7 @@ func Translate(s string) (string, error) {
 				fmt.Println("[GPT INSTANCE]", c.Token, "->", c.Status.String())
 			}
 		}
+		time.Sleep(20 * time.Second)
 	}
 	if err == nil {
 		return "错误！", ErrNotAvail

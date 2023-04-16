@@ -19,13 +19,13 @@ func (m *DollyModel) NeedTranslate() bool {
 	if !m.Translated {
 		return true
 	}
-	if strings.HasPrefix(m.Instruction, "错误！") {
+	if strings.HasPrefix(m.Instruction, "ERR") {
 		return true
 	}
-	if strings.HasPrefix(m.Context, "错误！") {
+	if strings.HasPrefix(m.Context, "ERR") {
 		return true
 	}
-	if strings.HasPrefix(m.Response, "错误！") {
+	if strings.HasPrefix(m.Response, "ERR") {
 		return true
 	}
 	return false

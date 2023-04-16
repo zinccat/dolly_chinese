@@ -76,17 +76,17 @@ func (m *DollyModel) translate(trans func(string) (string, error), idx int) {
 	m.Instruction, err = trans(m.Instruction)
 	if err != nil {
 		fmt.Printf("[错误] %d.Instruction -> %v\n", idx, err)
-		m.Instruction = "错误！" + m.Instruction + err.Error()
+		m.Instruction = "ERR！错误！" + m.Instruction + err.Error()
 	}
 	m.Context, err = trans(m.Context)
 	if err != nil {
 		fmt.Printf("[错误] %d.Context -> %v\n", idx, err)
-		m.Context = "错误！" + m.Context + err.Error()
+		m.Context = "ERR！错误！" + m.Context + err.Error()
 	}
 	m.Response, err = trans(m.Response)
 	if err != nil {
 		fmt.Printf("[错误] %d.Response -> %v\n", idx, err)
-		m.Response = "错误！" + m.Response + err.Error()
+		m.Response = "ERR！错误！" + m.Response + err.Error()
 	}
 	m.Translated = true
 }
