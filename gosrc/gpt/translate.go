@@ -3,7 +3,6 @@ package gpt
 import (
 	"errors"
 	"fmt"
-	"github.com/sashabaranov/go-openai"
 	"github.com/zinccat/dolly_chinese/gosrc/gpt/prompt"
 	"strings"
 	"time"
@@ -11,6 +10,31 @@ import (
 
 var ErrNotAvail = errors.New("not available")
 
+func (g *Client) statusAdjust(e error) {
+	// return fmt.Errorf("error, status code: %d, message: %w", res.StatusCode, errRes.Error)
+	if e == nil {
+		return
+	}
+	err := e.Error()
+	if strings.Contains(err, "status code: 200") {
+		return
+	}
+	if strings.Contains(err, "status code: 429") {
+		if strings.Contains(err, "Your access was terminated due to violation of our policies") {
+			g.Status = Banned
+		} else {
+			g.Status = OutOfService
+		}
+	} else if strings.Contains(err, "status code: 403") {
+		g.Status = Banned
+	} else if strings.Contains(err, "status code: 401") {
+		g.Status = Banned
+	} else if strings.Contains(err, "status code: 503") {
+		g.Status = OutOfService
+	} else {
+		g.Status = OutOfService
+	}
+}
 func Translate(s string) (string, error) {
 	if strings.TrimSpace(s) == "" {
 		return "", nil
@@ -24,26 +48,9 @@ func Translate(s string) (string, error) {
 			return val, nil
 		}
 		fmt.Println("[GPT错误]", c.Token, "->", err.Error())
-
-		apiE, ok := err.(*openai.APIError)
-		if ok {
-			switch apiE.StatusCode {
-			case 429:
-				if strings.Contains(apiE.Message, "Your access was terminated due to violation of our policies") {
-					c.Status = Banned
-				} else {
-					c.Status = OutOfService
-				}
-			case 403, 401:
-				c.Status = Banned
-			case 503:
-				c.Status = OutOfService
-			default:
-				c.Status = OutOfService
-			}
-			if c.Status != OK {
-				fmt.Println("[GPT INSTANCE]", c.Token, "->", c.Status.String())
-			}
+		c.statusAdjust(err)
+		if c.Status != OK {
+			fmt.Println("[GPT INSTANCE]", c.Token, "->", c.Status.String())
 		}
 		time.Sleep(20 * time.Second)
 	}
